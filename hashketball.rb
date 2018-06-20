@@ -181,8 +181,14 @@ end
 def big_shoe_rebounds
   ## Merge home and away team into single hash
   joined = game_hash[:home][:players].merge(game_hash[:away][:players])
+  biggest_shoe = { shoe: 0 }
 
-  joined.each do |name, data|
-
+  joined.each_with_index do |(name, data), index|
+    if data[:shoe] > biggest_shoe[:shoe]
+      biggest_shoe[:shoe] = data[:shoe]
+      biggest_shoe[:rebounds] = data[:rebounds]
+    end
   end
+
+  biggest_shoe[:rebounds]
 end
